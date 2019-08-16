@@ -1,0 +1,23 @@
+{
+  "name": "phaser-game",
+  "version": "1.0.0",
+  "description": "",
+  "main": "game.js",
+  "scripts": {
+    "start": "serve",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/samnaish/phaser-game.git"
+  },
+  "author": "Sam Naish",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/samnaish/phaser-game/issues"
+  },
+  "homepage": "https://github.com/samnaish/phaser-game#readme",
+  "devDependencies": {
+    "serve": "^11.1.0"
+  }
+}

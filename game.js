@@ -18,19 +18,40 @@ var config = {
             this.load.spritesheet('dude', 'assets/dude.png',
                 { frameWidth: 32, frameHeight: 48 }
             );
+            this.load.audio('Jump', 'assets/Jump.wav');
+            this.load.audio('background-music', 'assets/background-music.ogg');
+            this.load.audio('sacre', 'assets/sacre-bleu.ogg');
         },
-        create: function () {
-            
+        create: function () {           
+            const background = this.sound.add('background-music');
+            background.loop = true;
+            background.volume = 0.2;
+            background.play();
+
+            const sacre = this.sound.add('sacre');
+            this.jumpSound = this.sound.add('Jump');
             const platforms = this.physics.add.staticGroup();
-        
+            
+
+
             let score = 0;
 
             this.add.image(400, 300, 'sky');
             const scoreText = this.add.text(16, 16, 'score: 0', { fontSize: '32px', fill: '#000' });
+            const timerText = this.add.text(600, 16, '0', { fontSize: '32px', fill: '#000' });
             platforms.create(400, 568, 'ground').setScale(2).refreshBody();
             platforms.create(600, 400, 'ground');
             platforms.create(50, 250, 'ground');
             platforms.create(750, 220, 'ground');
+
+            let seconds = 0;
+            const timer = setInterval(() => {
+                seconds++;
+                const hours = Math.floor(seconds / (60 * 60))
+                const minutes = Math.floor(seconds / 60);
+                const secondsRemainder = seconds % 60;
+                timerText.setText(`${hours}h:${minutes}m:${secondsRemainder}s`); 
+            }, 1000)
 
             this.player = this.physics.add.sprite(100, 450, 'dude');
 
@@ -104,6 +125,8 @@ var config = {
                 this.player.setTint(0xff0000);
                 this.player.anims.play('turn');
                 this.gameOver = true;
+                clearInterval(timer);
+                sacre.play();
             }, null, this)
         },
         update: function () {
@@ -122,6 +145,7 @@ var config = {
         
             if (this.cursors.up.isDown && this.player.body.touching.down) {
                 this.player.setVelocityY(-330);
+                this.jumpSound.play();
             }
 
         }
