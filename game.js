@@ -1,7 +1,9 @@
 var config = {
     type: Phaser.AUTO,
-    width: 800,
-    height: 600,
+    parent: 'game',
+    width: window.innerWidth,
+    height: window.innerHeight,
+    autoResize: true,
     physics: {
         default: 'arcade',
         arcade: {
@@ -32,11 +34,9 @@ var config = {
             this.jumpSound = this.sound.add('Jump');
             const platforms = this.physics.add.staticGroup();
             
-
-
             let score = 0;
 
-            this.add.image(400, 300, 'sky');
+            this.add.tileSprite(0, 0, window.innerWidth, window.innerHeight, 'sky').setOrigin(0);
             const scoreText = this.add.text(16, 16, 'score: 0', { fontSize: '32px', fill: '#000' });
             const timerText = this.add.text(600, 16, '0', { fontSize: '32px', fill: '#000' });
             platforms.create(400, 568, 'ground').setScale(2).refreshBody();
