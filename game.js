@@ -39,7 +39,7 @@ var config = {
             this.add.tileSprite(0, 0, window.innerWidth, window.innerHeight, 'sky').setOrigin(0);
             const scoreText = this.add.text(16, 16, 'score: 0', { fontSize: '32px', fill: '#000' });
             const timerText = this.add.text(600, 16, '0', { fontSize: '32px', fill: '#000' });
-            platforms.create(400, 568, 'ground').setScale(2).refreshBody();
+            platforms.create(0, 568, 'ground').setOrigin(0, 1).setScale(10, 1).refreshBody();
             platforms.create(600, 400, 'ground');
             platforms.create(50, 250, 'ground');
             platforms.create(750, 220, 'ground');
@@ -54,7 +54,6 @@ var config = {
             }, 1000)
 
             this.player = this.physics.add.sprite(100, 450, 'dude');
-
             this.player.setBounce(0.2);
             this.player.setCollideWorldBounds(true);
 
@@ -127,6 +126,7 @@ var config = {
                 this.gameOver = true;
                 clearInterval(timer);
                 sacre.play();
+                background.stop();
             }, null, this)
         },
         update: function () {
